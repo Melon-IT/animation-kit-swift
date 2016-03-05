@@ -10,6 +10,7 @@
 		4096A7E21C84B45800F39695 /* MelonAnimationKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4096A7E11C84B45800F39695 /* MelonAnimationKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4096A7E91C84B45800F39695 /* MelonAnimationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4096A7DE1C84B45800F39695 /* MelonAnimationKit.framework */; };
 		4096A7EE1C84B45800F39695 /* MelonAnimationKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4096A7ED1C84B45800F39695 /* MelonAnimationKitTests.swift */; };
+		4096A7FA1C84B5A100F39695 /* MBFIconLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4096A7F91C84B5A100F39695 /* MBFIconLayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		4096A7E81C84B45800F39695 /* MelonAnimationKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MelonAnimationKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4096A7ED1C84B45800F39695 /* MelonAnimationKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MelonAnimationKitTests.swift; sourceTree = "<group>"; };
 		4096A7EF1C84B45800F39695 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4096A7F91C84B5A100F39695 /* MBFIconLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBFIconLayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 		4096A7E01C84B45800F39695 /* MelonAnimationKit */ = {
 			isa = PBXGroup;
 			children = (
+				4096A7F81C84B57500F39695 /* Layer */,
 				4096A7E11C84B45800F39695 /* MelonAnimationKit.h */,
 				4096A7E31C84B45800F39695 /* Info.plist */,
 			);
@@ -84,6 +87,14 @@
 				4096A7EF1C84B45800F39695 /* Info.plist */,
 			);
 			path = MelonAnimationKitTests;
+			sourceTree = "<group>";
+		};
+		4096A7F81C84B57500F39695 /* Layer */ = {
+			isa = PBXGroup;
+			children = (
+				4096A7F91C84B5A100F39695 /* MBFIconLayer.swift */,
+			);
+			name = Layer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4096A7FA1C84B5A100F39695 /* MBFIconLayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,7 +265,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -295,7 +307,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -308,6 +320,7 @@
 		4096A7F31C84B45800F39695 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -318,12 +331,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.melon-it.MelonAnimationKit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		4096A7F41C84B45800F39695 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -376,6 +391,7 @@
 				4096A7F41C84B45800F39695 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4096A7F51C84B45800F39695 /* Build configuration list for PBXNativeTarget "MelonAnimationKitTests" */ = {
 			isa = XCConfigurationList;
@@ -384,6 +400,7 @@
 				4096A7F71C84B45800F39695 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
