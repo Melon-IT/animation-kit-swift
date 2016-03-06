@@ -32,7 +32,11 @@ public class MBFIconLayer: CAShapeLayer {
   
   public var color = UIColor.whiteColor()
   public var offset = UIOffset()
-  public var factor = CGFloat(1)
+  public var factor: CGFloat {
+    get {
+      return CGFloat(1)
+    }
+  }
   public var containerFrame = CGRectZero
   
   public var aligment:(horizontal: MBFIconHorizontalAligmentType, vertical: MBFIconVerticalAligmentType) = (MBFIconHorizontalAligmentType(),MBFIconVerticalAligmentType())
@@ -47,13 +51,12 @@ public class MBFIconLayer: CAShapeLayer {
     super.init(coder: aDecoder)
   }
   
-  public init(width: CGFloat, factor: CGFloat, color: UIColor) {
-    self.factor = factor
+  public init(width: CGFloat, color: UIColor) {
     self.color = color
     
     super.init()
-    
-    self.frame = CGRectMake(0, 0, width, width*factor)
+    self.contentsScale = UIScreen.mainScreen().scale
+    self.frame = CGRectMake(0, 0, width, width*self.factor)
   }
   
   public func align() {
@@ -65,11 +68,11 @@ public class MBFIconLayer: CAShapeLayer {
       break
       
     case MBFIconHorizontalAligmentType.Center:
-      frame.origin.x = self.containerFrame.midX - frame.midX
+      frame.origin.x = CGRectGetWidth(self.containerFrame)/2 - CGRectGetWidth(frame)/2
       break
       
     case MBFIconHorizontalAligmentType.Right:
-      frame.origin.x = self.containerFrame.maxX - frame.maxX
+      frame.origin.x = CGRectGetWidth(self.containerFrame) - CGRectGetWidth(frame)
       break
     }
     
@@ -78,11 +81,11 @@ public class MBFIconLayer: CAShapeLayer {
       break
       
     case MBFIconVerticalAligmentType.Center:
-      frame.origin.y = self.containerFrame.midY - frame.midY
+      frame.origin.y = CGRectGetHeight(self.containerFrame)/2 - CGRectGetHeight(frame)/2
       break
       
     case MBFIconVerticalAligmentType.Bottom:
-      frame.origin.y = self.containerFrame.maxY - frame.maxY
+      frame.origin.y = CGRectGetHeight(self.containerFrame) - CGRectGetHeight(frame)
       break
     }
     
