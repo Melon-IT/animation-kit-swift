@@ -65,6 +65,7 @@ public class MBFIconLayer: CAShapeLayer {
     
     switch self.aligment.horizontal {
     case MBFIconHorizontalAligmentType.Left:
+      frame.origin.x = 0
       break
       
     case MBFIconHorizontalAligmentType.Center:
