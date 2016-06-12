@@ -37,6 +37,10 @@ public class MBFIconLayer: CAShapeLayer {
       return CGFloat(1)
     }
   }
+  
+  override init(layer: AnyObject) {
+    super.init(layer: layer)
+  }
   public var containerFrame = CGRectZero
   
   public var aligment:(horizontal: MBFIconHorizontalAligmentType, vertical: MBFIconVerticalAligmentType) = (MBFIconHorizontalAligmentType(),MBFIconVerticalAligmentType())
