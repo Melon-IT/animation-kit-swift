@@ -9,41 +9,41 @@
 import UIKit
 
 public enum MBFIconHorizontalAligmentType: Int {
-  case Left
-  case Center
-  case Right
+  case left
+  case center
+  case right
   
   public init() {
-    self = Center
+    self = .center
   }
 }
 
 public enum MBFIconVerticalAligmentType: Int {
-  case Top
-  case Center
-  case Bottom
+  case top
+  case center
+  case bottom
   
   public init() {
-    self = Center
+    self = .center
   }
 }
 
-public class MBFIconLayer: CAShapeLayer {
+open class MBFIconLayer: CAShapeLayer {
   
-  public var color = UIColor.whiteColor()
-  public var offset = UIOffset()
-  public var factor: CGFloat {
+  open var color = UIColor.white
+  open var offset = UIOffset()
+  open var factor: CGFloat {
     get {
       return CGFloat(1)
     }
   }
   
-  override init(layer: AnyObject) {
+  override init(layer: Any) {
     super.init(layer: layer)
   }
-  public var containerFrame = CGRectZero
+  open var containerFrame = CGRect.zero
   
-  public var aligment:(horizontal: MBFIconHorizontalAligmentType, vertical: MBFIconVerticalAligmentType) = (MBFIconHorizontalAligmentType(),MBFIconVerticalAligmentType())
+  open var aligment:(horizontal: MBFIconHorizontalAligmentType, vertical: MBFIconVerticalAligmentType) = (MBFIconHorizontalAligmentType(),MBFIconVerticalAligmentType())
   
   public  override init() {
     
@@ -59,38 +59,38 @@ public class MBFIconLayer: CAShapeLayer {
     self.color = color
     
     super.init()
-    self.contentsScale = UIScreen.mainScreen().scale
-    self.frame = CGRectMake(0, 0, width, width*self.factor)
+    self.contentsScale = UIScreen.main.scale
+    self.frame = CGRect(x: 0, y: 0, width: width, height: width*self.factor)
   }
   
-  public func align() {
+  open func align() {
     
     var frame = self.frame
     
     switch self.aligment.horizontal {
-    case MBFIconHorizontalAligmentType.Left:
+    case MBFIconHorizontalAligmentType.left:
       frame.origin.x = 0
       break
       
-    case MBFIconHorizontalAligmentType.Center:
-      frame.origin.x = CGRectGetWidth(self.containerFrame)/2 - CGRectGetWidth(frame)/2
+    case MBFIconHorizontalAligmentType.center:
+      frame.origin.x = self.containerFrame.width/2 - frame.width/2
       break
       
-    case MBFIconHorizontalAligmentType.Right:
-      frame.origin.x = CGRectGetWidth(self.containerFrame) - CGRectGetWidth(frame)
+    case MBFIconHorizontalAligmentType.right:
+      frame.origin.x = self.containerFrame.width - frame.width
       break
     }
     
     switch self.aligment.vertical {
-    case MBFIconVerticalAligmentType.Top:
+    case MBFIconVerticalAligmentType.top:
       break
       
-    case MBFIconVerticalAligmentType.Center:
-      frame.origin.y = CGRectGetHeight(self.containerFrame)/2 - CGRectGetHeight(frame)/2
+    case MBFIconVerticalAligmentType.center:
+      frame.origin.y = self.containerFrame.height/2 - frame.height/2
       break
       
-    case MBFIconVerticalAligmentType.Bottom:
-      frame.origin.y = CGRectGetHeight(self.containerFrame) - CGRectGetHeight(frame)
+    case MBFIconVerticalAligmentType.bottom:
+      frame.origin.y = self.containerFrame.height - frame.height
       break
     }
     
