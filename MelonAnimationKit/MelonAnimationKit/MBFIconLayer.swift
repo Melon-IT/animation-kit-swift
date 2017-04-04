@@ -41,11 +41,13 @@ open class MBFIconLayer: CAShapeLayer {
   override init(layer: Any) {
     super.init(layer: layer)
   }
+  
   open var containerFrame = CGRect.zero
   
-  open var aligment:(horizontal: MBFIconHorizontalAligmentType, vertical: MBFIconVerticalAligmentType) = (MBFIconHorizontalAligmentType(),MBFIconVerticalAligmentType())
+  open var aligment: (horizontal: MBFIconHorizontalAligmentType, vertical: MBFIconVerticalAligmentType) =
+    (MBFIconHorizontalAligmentType(),MBFIconVerticalAligmentType())
   
-  public  override init() {
+  public override init() {
     
     super.init()
   }
@@ -60,7 +62,10 @@ open class MBFIconLayer: CAShapeLayer {
     
     super.init()
     self.contentsScale = UIScreen.main.scale
-    self.frame = CGRect(x: 0, y: 0, width: width, height: width*self.factor)
+    self.frame = CGRect(x: 0,
+                        y: 0,
+                        width: width,
+                        height: width * self.factor)
   }
   
   open func align() {
@@ -68,6 +73,7 @@ open class MBFIconLayer: CAShapeLayer {
     var frame = self.frame
     
     switch self.aligment.horizontal {
+      
     case MBFIconHorizontalAligmentType.left:
       frame.origin.x = 0
       break
