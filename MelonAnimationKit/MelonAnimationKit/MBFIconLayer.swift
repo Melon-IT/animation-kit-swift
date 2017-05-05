@@ -48,26 +48,31 @@ open class MBFIconLayer: CAShapeLayer {
   open var aligment: (horizontal: MBFIconHorizontalAligmentType, vertical: MBFIconVerticalAligmentType) =
     (MBFIconHorizontalAligmentType(),MBFIconVerticalAligmentType())
   
-  public override init() {
-    super.init()
-    
-    self.contentsScale = UIScreen.main.scale
-  }
+
   
   required public init?(coder aDecoder: NSCoder) {
-    
     super.init(coder: aDecoder)
   }
   
-  public init(width: CGFloat, color: UIColor) {
-    self.color = color
-    
+  public override init() {
     super.init()
+    self.contentsScale = UIScreen.main.scale
+  }
+  
+  public init(width: CGFloat) {
+    super.init()
+    
     self.contentsScale = UIScreen.main.scale
     self.frame = CGRect(x: 0,
                         y: 0,
                         width: width,
                         height: width * self.factor)
+  }
+  
+  public convenience init(width: CGFloat, color: UIColor) {
+    self.init(width: width)
+    
+    self.color = color
   }
   
   open func align() {
