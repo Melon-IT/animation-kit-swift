@@ -32,24 +32,26 @@ open class MBFIconLayer: CAShapeLayer {
   
   open var color = UIColor.white
   open var offset = UIOffset()
+  
   open var factor: CGFloat {
     get {
       return CGFloat(1)
     }
   }
   
-  override init(layer: Any) {
+  open var containerFrame = CGRect.zero
+  
+  override public init(layer: Any) {
     super.init(layer: layer)
   }
-  
-  open var containerFrame = CGRect.zero
   
   open var aligment: (horizontal: MBFIconHorizontalAligmentType, vertical: MBFIconVerticalAligmentType) =
     (MBFIconHorizontalAligmentType(),MBFIconVerticalAligmentType())
   
   public override init() {
-    
     super.init()
+    
+    self.contentsScale = UIScreen.main.scale
   }
   
   required public init?(coder aDecoder: NSCoder) {
