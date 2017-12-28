@@ -3,7 +3,7 @@
 //  MelonAnimationKit
 //
 //  Created by Tomasz Popis on 29/02/16.
-//  Copyright © 2016 Melon-IT. All rights reserved.
+//  Copyright © 2016 Melon. All rights reserved.
 //
 
 import UIKit
@@ -32,35 +32,47 @@ open class MBFIconLayer: CAShapeLayer {
   
   open var color = UIColor.white
   open var offset = UIOffset()
+  
   open var factor: CGFloat {
     get {
       return CGFloat(1)
     }
   }
   
-  override init(layer: Any) {
-    super.init(layer: layer)
-  }
   open var containerFrame = CGRect.zero
   
-  open var aligment:(horizontal: MBFIconHorizontalAligmentType, vertical: MBFIconVerticalAligmentType) = (MBFIconHorizontalAligmentType(),MBFIconVerticalAligmentType())
-  
-  public  override init() {
-    
-    super.init()
+  override public init(layer: Any) {
+    super.init(layer: layer)
   }
   
+  open var aligment: (horizontal: MBFIconHorizontalAligmentType, vertical: MBFIconVerticalAligmentType) =
+    (MBFIconHorizontalAligmentType(),MBFIconVerticalAligmentType())
+  
+
+  
   required public init?(coder aDecoder: NSCoder) {
-    
     super.init(coder: aDecoder)
   }
   
-  public init(width: CGFloat, color: UIColor) {
-    self.color = color
-    
+  public override init() {
     super.init()
     self.contentsScale = UIScreen.main.scale
-    self.frame = CGRect(x: 0, y: 0, width: width, height: width*self.factor)
+  }
+  
+  public init(width: CGFloat) {
+    super.init()
+    
+    self.contentsScale = UIScreen.main.scale
+    self.frame = CGRect(x: 0,
+                        y: 0,
+                        width: width,
+                        height: width * self.factor)
+  }
+  
+  public convenience init(width: CGFloat, color: UIColor) {
+    self.init(width: width)
+    
+    self.color = color
   }
   
   open func align() {
@@ -68,6 +80,7 @@ open class MBFIconLayer: CAShapeLayer {
     var frame = self.frame
     
     switch self.aligment.horizontal {
+      
     case MBFIconHorizontalAligmentType.left:
       frame.origin.x = 0
       break

@@ -3,7 +3,7 @@
 //  MelonAnimationKit
 //
 //  Created by Tomasz Popis on 29/02/16.
-//  Copyright © 2016 Melon-IT. All rights reserved.
+//  Copyright © 2016 Melon. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
