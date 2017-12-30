@@ -30,52 +30,50 @@ public enum MBFIconVerticalAligment: Int {
 
 open class MBFIconLayer: CALayer {
   
-  open var color: UIColor
-  open var offset: UIOffset
-  open private(set) var factor: CGFloat
+  open var color: UIColor = UIColor.black
+  open var offset: UIOffset = UIOffset.zero
+  open private(set) var factor: CGFloat = 1
   open var containerFrame: CGRect = CGRect.zero
   
-  open var aligment: (horizontal: MBFIconHorizontalAligment, vertical: MBFIconVerticalAligment)
+  open var aligment: (horizontal: MBFIconHorizontalAligment, vertical: MBFIconVerticalAligment) = (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
   
-  public init(width: Float, factor: Float, color: UIColor, offset: UIOffset) {
+  public init(width: CGFloat, factor: CGFloat, color: UIColor, offset: UIOffset) {
     self.color = color
     self.offset = offset
-    self.factor = CGFloat(factor)
+    self.factor = factor
     self.aligment = (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
     
     super.init()
-    let cgWidth = CGFloat(width)
     self.frame = CGRect(x: 0,
                         y: 0,
-                        width: cgWidth,
-                        height: cgWidth * self.factor)
+                        width: width,
+                        height: width * self.factor)
     self.contentsScale = UIScreen.main.scale
   }
   
-  public convenience init(width: Float) {
+  public convenience override init() {
+    self.init(width: 0, factor: 1, color: UIColor.black, offset: UIOffset.zero)
+  }
+  public convenience init(width: CGFloat) {
     self.init(width: width, factor: 1, color: UIColor.black, offset: UIOffset.zero)
   }
   
-  public convenience init(width: Float, color: UIColor) {
+  public convenience init(width: CGFloat, color: UIColor) {
     self.init(width: width, factor: 1, color: color, offset: UIOffset.zero)
   }
-  
-  required public init?(coder aDecoder: NSCoder) {
-    self.color = UIColor.black
-    self.offset = UIOffset.zero
-    self.factor = 1
-    self.aligment = (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
-    
-    super.init(coder: aDecoder)
+
+  public override init(layer: Any) {
+    if let iconLayer = layer as? MBFIconLayer {
+      self.color = iconLayer.color
+      self.offset = iconLayer.offset
+      self.factor = iconLayer.factor
+      self.aligment = iconLayer.aligment
+    }
+    super.init(layer: layer)
   }
   
-  override public init(layer: Any) {
-    self.color = UIColor.black
-    self.offset = UIOffset.zero
-    self.factor = 1
-    self.aligment = (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
-    
-    super.init(layer: layer)
+  public required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
   }
   
   open func align() {
