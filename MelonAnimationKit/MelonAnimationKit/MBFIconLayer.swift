@@ -8,7 +8,7 @@
 
 import UIKit
 
-public enum MBFIconHorizontalAligmentType: Int {
+public enum MBFIconHorizontalAligment: Int {
   case left
   case center
   case right
@@ -18,7 +18,7 @@ public enum MBFIconHorizontalAligmentType: Int {
   }
 }
 
-public enum MBFIconVerticalAligmentType: Int {
+public enum MBFIconVerticalAligment: Int {
   case top
   case center
   case bottom
@@ -28,7 +28,7 @@ public enum MBFIconVerticalAligmentType: Int {
   }
 }
 
-open class MBFIconLayer: CAShapeLayer {
+open class MBFIconLayer: CALayer {
   
   open var color = UIColor.white
   open var offset = UIOffset()
@@ -45,8 +45,8 @@ open class MBFIconLayer: CAShapeLayer {
     super.init(layer: layer)
   }
   
-  open var aligment: (horizontal: MBFIconHorizontalAligmentType, vertical: MBFIconVerticalAligmentType) =
-    (MBFIconHorizontalAligmentType(),MBFIconVerticalAligmentType())
+  open var aligment: (horizontal: MBFIconHorizontalAligment, vertical: MBFIconVerticalAligment) =
+    (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
   
 
   
@@ -81,28 +81,28 @@ open class MBFIconLayer: CAShapeLayer {
     
     switch self.aligment.horizontal {
       
-    case MBFIconHorizontalAligmentType.left:
+    case MBFIconHorizontalAligment.left:
       frame.origin.x = 0
       break
       
-    case MBFIconHorizontalAligmentType.center:
+    case MBFIconHorizontalAligment.center:
       frame.origin.x = self.containerFrame.width/2 - frame.width/2
       break
       
-    case MBFIconHorizontalAligmentType.right:
+    case MBFIconHorizontalAligment.right:
       frame.origin.x = self.containerFrame.width - frame.width
       break
     }
     
     switch self.aligment.vertical {
-    case MBFIconVerticalAligmentType.top:
+    case MBFIconVerticalAligment.top:
       break
       
-    case MBFIconVerticalAligmentType.center:
+    case MBFIconVerticalAligment.center:
       frame.origin.y = self.containerFrame.height/2 - frame.height/2
       break
       
-    case MBFIconVerticalAligmentType.bottom:
+    case MBFIconVerticalAligment.bottom:
       frame.origin.y = self.containerFrame.height - frame.height
       break
     }
