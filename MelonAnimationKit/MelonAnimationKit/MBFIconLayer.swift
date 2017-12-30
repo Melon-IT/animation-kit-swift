@@ -30,53 +30,55 @@ public enum MBFIconVerticalAligment: Int {
 
 open class MBFIconLayer: CALayer {
   
-  open var color = UIColor.white
-  open var offset = UIOffset()
+  open var color: UIColor
+  open var offset: UIOffset
+  open private(set) var factor: CGFloat
+  open var containerFrame: CGRect = CGRect.zero
   
-  open var factor: CGFloat {
-    get {
-      return CGFloat(1)
-    }
+  open var aligment: (horizontal: MBFIconHorizontalAligment, vertical: MBFIconVerticalAligment)
+  
+  public init(width: Float, factor: Float, color: UIColor, offset: UIOffset) {
+    self.color = color
+    self.offset = offset
+    self.factor = CGFloat(factor)
+    self.aligment = (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
+    
+    super.init()
+    let cgWidth = CGFloat(width)
+    self.frame = CGRect(x: 0,
+                        y: 0,
+                        width: cgWidth,
+                        height: cgWidth * self.factor)
+    self.contentsScale = UIScreen.main.scale
   }
   
-  open var containerFrame = CGRect.zero
-  
-  override public init(layer: Any) {
-    super.init(layer: layer)
+  public convenience init(width: Float) {
+    self.init(width: width, factor: 1, color: UIColor.black, offset: UIOffset.zero)
   }
   
-  open var aligment: (horizontal: MBFIconHorizontalAligment, vertical: MBFIconVerticalAligment) =
-    (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
-  
-
+  public convenience init(width: Float, color: UIColor) {
+    self.init(width: width, factor: 1, color: color, offset: UIOffset.zero)
+  }
   
   required public init?(coder aDecoder: NSCoder) {
+    self.color = UIColor.black
+    self.offset = UIOffset.zero
+    self.factor = 1
+    self.aligment = (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
+    
     super.init(coder: aDecoder)
   }
   
-  public override init() {
-    super.init()
-    self.contentsScale = UIScreen.main.scale
-  }
-  
-  public init(width: CGFloat) {
-    super.init()
+  override public init(layer: Any) {
+    self.color = UIColor.black
+    self.offset = UIOffset.zero
+    self.factor = 1
+    self.aligment = (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
     
-    self.contentsScale = UIScreen.main.scale
-    self.frame = CGRect(x: 0,
-                        y: 0,
-                        width: width,
-                        height: width * self.factor)
-  }
-  
-  public convenience init(width: CGFloat, color: UIColor) {
-    self.init(width: width)
-    
-    self.color = color
+    super.init(layer: layer)
   }
   
   open func align() {
-    
     var frame = self.frame
     
     switch self.aligment.horizontal {
