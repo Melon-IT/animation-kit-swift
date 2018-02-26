@@ -34,15 +34,15 @@ public protocol MBFIconDrawingDelegate {
 
 open class MBFIconLayer: CALayer {
   
-  open var color: UIColor = UIColor.black
+  open var drawingDelegate: MBFIconDrawingDelegate?
+  open var offset: UIOffset = UIOffset.zero
   open var factor: CGFloat {
+    
     return 1
   }
-  open var offset: UIOffset = UIOffset.zero
-  
-  open var drawingDelegate: MBFIconDrawingDelegate?
-  
-  open var aligment: (horizontal: MBFIconHorizontalAligment, vertical: MBFIconVerticalAligment) = (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
+  open var aligment:
+    (horizontal: MBFIconHorizontalAligment, vertical: MBFIconVerticalAligment) =
+    (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
   
   public init(width: CGFloat) {
     self.aligment = (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
@@ -57,10 +57,11 @@ open class MBFIconLayer: CALayer {
   
   public override init(layer: Any) {
     if let iconLayer = layer as? MBFIconLayer {
-      self.color = iconLayer.color
       self.offset = iconLayer.offset
       self.aligment = iconLayer.aligment
+      self.drawingDelegate = iconLayer.drawingDelegate
     }
+    
     super.init(layer: layer)
   }
   
@@ -73,9 +74,7 @@ open class MBFIconLayer: CALayer {
   }
   
   open func align() {
-    
     if let superFrame = self.superlayer?.frame {
-      
       switch self.aligment.horizontal {
       case MBFIconHorizontalAligment.left:
         self.frame.origin.x = 0
