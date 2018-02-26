@@ -44,9 +44,7 @@ open class MBFIconLayer: CALayer {
   
   open var aligment: (horizontal: MBFIconHorizontalAligment, vertical: MBFIconVerticalAligment) = (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
   
-  public init(width: CGFloat, color: UIColor, offset: UIOffset) {
-    self.color = color
-    self.offset = offset
+  public init(width: CGFloat) {
     self.aligment = (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
     
     super.init()
@@ -55,17 +53,6 @@ open class MBFIconLayer: CALayer {
                         width: width,
                         height: width * self.factor)
     self.contentsScale = UIScreen.main.scale
-  }
-  
-  public convenience override init() {
-    self.init(width: 0, color: UIColor.black, offset: UIOffset.zero)
-  }
-  public convenience init(width: CGFloat) {
-    self.init(width: width, color: UIColor.black, offset: UIOffset.zero)
-  }
-  
-  public convenience init(width: CGFloat, color: UIColor) {
-    self.init(width: width, color: color, offset: UIOffset.zero)
   }
   
   public override init(layer: Any) {
