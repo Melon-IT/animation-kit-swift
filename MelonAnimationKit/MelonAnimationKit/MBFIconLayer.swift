@@ -28,19 +28,23 @@ public enum MBFIconVerticalAligment: Int {
   }
 }
 
+public protocol MBFIconDrawingDelegate {
+  func drawIn(context: CGContext, frame: CGRect)
+}
+
 open class MBFIconLayer: CALayer {
   
-  open var color: UIColor = UIColor.black
+  open var drawingDelegate: MBFIconDrawingDelegate?
   open var offset: UIOffset = UIOffset.zero
-  open private(set) var factor: CGFloat = 1
-  open var containerFrame: CGRect = CGRect.zero
+  open var factor: CGFloat {
+    
+    return 1
+  }
+  open var aligment:
+    (horizontal: MBFIconHorizontalAligment, vertical: MBFIconVerticalAligment) =
+    (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
   
-  open var aligment: (horizontal: MBFIconHorizontalAligment, vertical: MBFIconVerticalAligment) = (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
-  
-  public init(width: CGFloat, factor: CGFloat, color: UIColor, offset: UIOffset) {
-    self.color = color
-    self.offset = offset
-    self.factor = factor
+  public init(width: CGFloat) {
     self.aligment = (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
     
     super.init()
@@ -51,24 +55,13 @@ open class MBFIconLayer: CALayer {
     self.contentsScale = UIScreen.main.scale
   }
   
-  public convenience override init() {
-    self.init(width: 0, factor: 1, color: UIColor.black, offset: UIOffset.zero)
-  }
-  public convenience init(width: CGFloat) {
-    self.init(width: width, factor: 1, color: UIColor.black, offset: UIOffset.zero)
-  }
-  
-  public convenience init(width: CGFloat, color: UIColor) {
-    self.init(width: width, factor: 1, color: color, offset: UIOffset.zero)
-  }
-
   public override init(layer: Any) {
     if let iconLayer = layer as? MBFIconLayer {
-      self.color = iconLayer.color
       self.offset = iconLayer.offset
-      self.factor = iconLayer.factor
       self.aligment = iconLayer.aligment
+      self.drawingDelegate = iconLayer.drawingDelegate
     }
+    
     super.init(layer: layer)
   }
   
@@ -76,40 +69,41 @@ open class MBFIconLayer: CALayer {
     super.init(coder: aDecoder)
   }
   
+  open override func draw(in ctx: CGContext) {
+    self.drawingDelegate?.drawIn(context: ctx, frame: self.frame)
+  }
+  
   open func align() {
-    var frame = self.frame
-    
-    switch self.aligment.horizontal {
+    if let superFrame = self.superlayer?.frame {
+      switch self.aligment.horizontal {
+      case MBFIconHorizontalAligment.left:
+        self.frame.origin.x = 0
+        break
+        
+      case MBFIconHorizontalAligment.center:
+        self.frame.origin.x = superFrame.width/2 - frame.width/2
+        break
+        
+      case MBFIconHorizontalAligment.right:
+        self.frame.origin.x = superFrame.width - frame.width
+        break
+      }
       
-    case MBFIconHorizontalAligment.left:
-      frame.origin.x = 0
-      break
+      switch self.aligment.vertical {
+      case MBFIconVerticalAligment.top:
+        break
+        
+      case MBFIconVerticalAligment.center:
+        self.frame.origin.y = superFrame.height/2 - frame.height/2
+        break
+        
+      case MBFIconVerticalAligment.bottom:
+        self.frame.origin.y = superFrame.height - frame.height
+        break
+      }
       
-    case MBFIconHorizontalAligment.center:
-      frame.origin.x = self.containerFrame.width/2 - frame.width/2
-      break
-      
-    case MBFIconHorizontalAligment.right:
-      frame.origin.x = self.containerFrame.width - frame.width
-      break
+      self.frame.origin.x += self.offset.horizontal
+      self.frame.origin.y += self.offset.vertical
     }
-    
-    switch self.aligment.vertical {
-    case MBFIconVerticalAligment.top:
-      break
-      
-    case MBFIconVerticalAligment.center:
-      frame.origin.y = self.containerFrame.height/2 - frame.height/2
-      break
-      
-    case MBFIconVerticalAligment.bottom:
-      frame.origin.y = self.containerFrame.height - frame.height
-      break
-    }
-    
-    frame.origin.x += self.offset.horizontal
-    frame.origin.y += self.offset.vertical
-    
-    self.frame = frame
   }
 }
