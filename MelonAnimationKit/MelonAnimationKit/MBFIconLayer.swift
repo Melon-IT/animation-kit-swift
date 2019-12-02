@@ -8,7 +8,7 @@
 
 import UIKit
 
-public enum MBFIconHorizontalAligmentType: Int {
+public enum MBFIconHorizontalAligment: Int {
   case left
   case center
   case right
@@ -18,7 +18,7 @@ public enum MBFIconHorizontalAligmentType: Int {
   }
 }
 
-public enum MBFIconVerticalAligmentType: Int {
+public enum MBFIconVerticalAligment: Int {
   case top
   case center
   case bottom
@@ -28,88 +28,82 @@ public enum MBFIconVerticalAligmentType: Int {
   }
 }
 
-open class MBFIconLayer: CAShapeLayer {
-  
-  open var color = UIColor.white
-  open var offset = UIOffset()
-  
-  open var factor: CGFloat {
-    get {
-      return CGFloat(1)
-    }
-  }
-  
-  open var containerFrame = CGRect.zero
-  
-  override public init(layer: Any) {
-    super.init(layer: layer)
-  }
-  
-  open var aligment: (horizontal: MBFIconHorizontalAligmentType, vertical: MBFIconVerticalAligmentType) =
-    (MBFIconHorizontalAligmentType(),MBFIconVerticalAligmentType())
-  
+public protocol MBFIconDrawingDelegate {
+  func drawIn(context: CGContext, frame: CGRect)
+}
 
+open class MBFIconLayer: CALayer {
   
-  required public init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
+  open var drawingDelegate: MBFIconDrawingDelegate?
+  open var offset: UIOffset = UIOffset.zero
+  open var factor: CGFloat {
+    
+    return 1
   }
-  
-  public override init() {
-    super.init()
-    self.contentsScale = UIScreen.main.scale
-  }
+  open var aligment:
+    (horizontal: MBFIconHorizontalAligment, vertical: MBFIconVerticalAligment) =
+    (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
   
   public init(width: CGFloat) {
-    super.init()
+    self.aligment = (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
     
-    self.contentsScale = UIScreen.main.scale
+    super.init()
     self.frame = CGRect(x: 0,
                         y: 0,
                         width: width,
                         height: width * self.factor)
+    self.contentsScale = UIScreen.main.scale
   }
   
-  public convenience init(width: CGFloat, color: UIColor) {
-    self.init(width: width)
+  public override init(layer: Any) {
+    if let iconLayer = layer as? MBFIconLayer {
+      self.offset = iconLayer.offset
+      self.aligment = iconLayer.aligment
+      self.drawingDelegate = iconLayer.drawingDelegate
+    }
     
-    self.color = color
+    super.init(layer: layer)
+  }
+  
+  public required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
+  
+  open override func draw(in ctx: CGContext) {
+    self.drawingDelegate?.drawIn(context: ctx, frame: self.frame)
   }
   
   open func align() {
-    
-    var frame = self.frame
-    
-    switch self.aligment.horizontal {
+    if let superFrame = self.superlayer?.frame {
+      switch self.aligment.horizontal {
+      case MBFIconHorizontalAligment.left:
+        self.frame.origin.x = 0
+        break
+        
+      case MBFIconHorizontalAligment.center:
+        self.frame.origin.x = superFrame.width/2 - frame.width/2
+        break
+        
+      case MBFIconHorizontalAligment.right:
+        self.frame.origin.x = superFrame.width - frame.width
+        break
+      }
       
-    case MBFIconHorizontalAligmentType.left:
-      frame.origin.x = 0
-      break
+      switch self.aligment.vertical {
+      case MBFIconVerticalAligment.top:
+        break
+        
+      case MBFIconVerticalAligment.center:
+        self.frame.origin.y = superFrame.height/2 - frame.height/2
+        break
+        
+      case MBFIconVerticalAligment.bottom:
+        self.frame.origin.y = superFrame.height - frame.height
+        break
+      }
       
-    case MBFIconHorizontalAligmentType.center:
-      frame.origin.x = self.containerFrame.width/2 - frame.width/2
-      break
-      
-    case MBFIconHorizontalAligmentType.right:
-      frame.origin.x = self.containerFrame.width - frame.width
-      break
+      self.frame.origin.x += self.offset.horizontal
+      self.frame.origin.y += self.offset.vertical
     }
-    
-    switch self.aligment.vertical {
-    case MBFIconVerticalAligmentType.top:
-      break
-      
-    case MBFIconVerticalAligmentType.center:
-      frame.origin.y = self.containerFrame.height/2 - frame.height/2
-      break
-      
-    case MBFIconVerticalAligmentType.bottom:
-      frame.origin.y = self.containerFrame.height - frame.height
-      break
-    }
-    
-    frame.origin.x += self.offset.horizontal
-    frame.origin.y += self.offset.vertical
-    
-    self.frame = frame
   }
 }
