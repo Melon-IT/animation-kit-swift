@@ -36,16 +36,35 @@ open class MBFIconLayer: CALayer {
   
   open var drawingDelegate: MBFIconDrawingDelegate?
   open var offset: UIOffset = UIOffset.zero
+  open var color: UIColor = UIColor.clear
   open var factor: CGFloat {
-    
+
     return 1
   }
   open var aligment:
     (horizontal: MBFIconHorizontalAligment, vertical: MBFIconVerticalAligment) =
     (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
   
+  public override init() {
+    self.aligment = (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
+    super.init()
+    
+    self.contentsScale = UIScreen.main.scale
+  }
   public init(width: CGFloat) {
     self.aligment = (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
+    
+    super.init()
+    self.frame = CGRect(x: 0,
+                        y: 0,
+                        width: width,
+                        height: width * self.factor)
+    self.contentsScale = UIScreen.main.scale
+  }
+  
+  public init(width: CGFloat, color: UIColor) {
+    self.aligment = (MBFIconHorizontalAligment(),MBFIconVerticalAligment())
+    self.color = color
     
     super.init()
     self.frame = CGRect(x: 0,
