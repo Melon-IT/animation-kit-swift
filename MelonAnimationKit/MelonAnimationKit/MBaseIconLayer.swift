@@ -81,13 +81,15 @@ open class MBaseIconLayer: CALayer {
     self.contentsScale = UIScreen.main.scale
   }
   
-  public convenience init(width: CGFloat,  color: UIColor = UIColor.clear, factor: CGFloat = 1) {
+  public convenience init(width: CGFloat,
+                          color: UIColor = UIColor.clear,
+                          factor: CGFloat = 1) {
     
     self.init(width: width,
               factor: factor,
               offset: UIOffset.zero,
               aligment:(MIconHorizontalAligment(),MIconVerticalAligment()),
-              color: UIColor.clear)
+              color: color)
   }
   
   public override init(layer: Any) {
