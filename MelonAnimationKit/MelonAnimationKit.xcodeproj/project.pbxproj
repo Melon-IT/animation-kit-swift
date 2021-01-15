@@ -10,7 +10,7 @@
 		4096A7E21C84B45800F39695 /* MelonAnimationKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4096A7E11C84B45800F39695 /* MelonAnimationKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4096A7E91C84B45800F39695 /* MelonAnimationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4096A7DE1C84B45800F39695 /* MelonAnimationKit.framework */; };
 		4096A7EE1C84B45800F39695 /* MelonAnimationKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4096A7ED1C84B45800F39695 /* MelonAnimationKitTests.swift */; };
-		4096A7FA1C84B5A100F39695 /* MBFIconLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4096A7F91C84B5A100F39695 /* MBFIconLayer.swift */; };
+		4096A7FA1C84B5A100F39695 /* MBaseIconLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4096A7F91C84B5A100F39695 /* MBaseIconLayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +30,7 @@
 		4096A7E81C84B45800F39695 /* MelonAnimationKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MelonAnimationKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4096A7ED1C84B45800F39695 /* MelonAnimationKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MelonAnimationKitTests.swift; sourceTree = "<group>"; };
 		4096A7EF1C84B45800F39695 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4096A7F91C84B5A100F39695 /* MBFIconLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBFIconLayer.swift; sourceTree = "<group>"; };
+		4096A7F91C84B5A100F39695 /* MBaseIconLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBaseIconLayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +92,7 @@
 		4096A7F81C84B57500F39695 /* Layer */ = {
 			isa = PBXGroup;
 			children = (
-				4096A7F91C84B5A100F39695 /* MBFIconLayer.swift */,
+				4096A7F91C84B5A100F39695 /* MBaseIconLayer.swift */,
 			);
 			name = Layer;
 			sourceTree = "<group>";
@@ -154,7 +154,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "Melon-IT";
 				TargetAttributes = {
 					4096A7DD1C84B45800F39695 = {
@@ -212,7 +212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4096A7FA1C84B5A100F39695 /* MBFIconLayer.swift in Sources */,
+				4096A7FA1C84B5A100F39695 /* MBaseIconLayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,7 +284,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -338,7 +338,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -353,7 +353,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -380,7 +380,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
